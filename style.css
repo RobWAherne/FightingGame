@@ -1,3 +1,19 @@
 .container {
   border:1px solid black;
 }
+
+div{
+  border:0px solid black;
+}
+
+.dice{
+  margin:5px;
+}
+
+.profile{
+  width:100%;
+}
+
+p{
+  font-size: 24px;
+}
