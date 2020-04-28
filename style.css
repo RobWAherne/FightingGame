@@ -17,3 +17,24 @@ div{
 p{
   font-size: 24px;
 }
+
+.healthBar{
+  width:100%;
+  border:1px solid black;
+  height:30px;
+}
+
+.healthBarInner{
+  width:60%;
+  background-color: green;
+  border:0px solid black;
+  height:28px;
+}
+
+.score{
+  font-weight: bold;
+}
+
+h2{
+  font-size: 40px;
+}

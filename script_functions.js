@@ -2,6 +2,50 @@ function randomIntFromInterval(min, max) { // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function nextRound(){
+  if(randomIntFromInterval(1,2) == 1){
+    leftPlayer.fightButton.prop('disabled',true);
+    rightPlayer.fightButton.prop('disabled',false);
+  }
+  else{
+    leftPlayer.fightButton.prop('disabled',false);
+    rightPlayer.fightButton.prop('disabled',true);
+  }
+  fightRollCount = 0;
+}
+
+function fightRollFinished(player){
+
+    console.log(player);
+    console.log("rollcount:" + fightRollCount);
+    
+    if(fightRollCount == 2){
+      showWinner();
+    }else if(player == "left"){
+      rightPlayer.fightButton.prop('disabled',false);
+    }else if(player == "right"){
+      leftPlayer.fightButton.prop('disabled',false);
+    }
+}
+
+function showWinner()
+{
+  console.log("left: "+leftPlayer.total);
+  console.log("right: "+rightPlayer.total);
+
+  if(leftPlayer.total > rightPlayer.total){
+    rightPlayer.stamina.text(rightPlayer.stamina.text()-2);
+  }else if(rightPlayer.total > leftPlayer.total){
+    leftPlayer.stamina.text(leftPlayer.stamina.text()-2);
+  }else
+  {
+
+  }
+
+  nextRound();
+
+}
+
 /*
 jQuery-Rotate-Plugin v0.2 by anatol.at
 http://jsfiddle.net/Anatol/T6kDR/

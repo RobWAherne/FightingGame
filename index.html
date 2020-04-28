@@ -17,23 +17,34 @@
         <div class="header-full-width col-sm-12"><h1></h1></div>
     </div>
     <div class="row profile-row">
-        <div class="profile-left col-sm-3"><img src="images/beast1.jpg" class="profile" id="profileImageLeft"></img></div>
-        <div class="roll-left col-sm-3">
+        <div class="profile-left col-sm-3"><img src="images/beast4.png" class="profile" id="profileImageLeft"></img></div>
+        <div class="roll-left col-sm-3 text-center">
           <button type="button" class="btn btn-outline-primary btn-block" id="rollFightLeft">Roll</button>
-          <h2><span class="dice dice-6" title="Dice 1" id="diceOneLeft"></span><span class="dice dice-1" title="Dice 1" id="diceTwoLeft"></span></h2><p id="totalLeft" style="float:left;font-weight:bold"></p>
+          <h2><span class="dice dice-6" title="Dice 1" id="diceOneLeft"></span><span class="dice dice-1" title="Dice 1" id="diceTwoLeft"></span></h2><p id="totalLeft" style="font-weight:bold"></p>
         </div>
-        <div class="roll-right col-sm-3">
+        <div class="roll-right col-sm-3 text-center">
           <button type="button" class="btn btn-outline-primary btn-block" id="rollFightRight">Roll</button>
-          <h2 style="float:right; display:inline-block;"><span class="dice dice-6" title="Dice 1"  id="diceOneRight"></span><span class="dice dice-1" title="Dice 1" style="float:right" id="diceTwoRight"></span></h2>
-          <div style="display:inline-block;float:right;width:100%"><p id="totalRight"  style="float:right;font-weight:bold" id="totalRight"></p></div>
+          <h2><span class="dice dice-6" title="Dice 1"  id="diceOneRight"></span><span class="dice dice-1" title="Dice 1" id="diceTwoRight"></span></h2>
+          <div ><p id="totalRight"  style="font-weight:bold" id="totalRight"></p></div>
         </div>
-        <div class="profile-right col-sm-3" ><img src="images/beast2.jpg" class="profile" id="profileImageRight"></img></div>
+        <div class="profile-right col-sm-3" ><img src="images/beast3.png" class="profile" id="profileImageRight"></img></div>
     </div>
     <div class="row stamina-row">
-        <div class="stamina-left col-sm-3"><p>Stamina: <span id="staminaScoreLeft">12</span></p></div>
+        <div class="stamina-left col-sm-3 text-center"><p>Stamina</p>
+          <div class="healthBar" id="healthBarLeft" >
+            <div class="healthBarInner" id="healthBarInnerLeft"></div>
+          </div>
+          <p class="score"><span id="staminaScoreLeft">22</span></p>
+        </div>
         <div class="attack-left col-sm-3"></div>
         <div class="attack-right col-sm-3"></div>
-        <div class="stamina-right col-sm-3 text-right"><p><span id="staminaScoreRight">12</span> : Stamina</p></div>
+        <div class="stamina-right col-sm-3 text-center"><p>Stamina</p>
+         <div class="healthBar" id="healthBarRight" >
+            <div class="healthBarInner" id="healthBarInnerRight"></div>
+          </div>
+          <p class="score"><span id="staminaScoreRight">18</span></p>
+      
+        </div>
     </div>
     <div class="row stamina-roll-row">
         <div class="stamina-roll-left col-sm-3"></div>
@@ -42,10 +53,14 @@
         <div class="stamina-roll-right col-sm-3"></div>
     </div>
     <div class="row stength-row">
-        <div class="strength-left col-sm-3 "><p>Strength:<span id="strengthScoreLeft">12</span></p></div>
+        <div class="strength-left col-sm-3 text-center"><p>Strength</p>
+          <p class="score"><span id="strengthScoreLeft" >9</span></p>
+        </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-3"></div>
-        <div class="strength-right col-sm-3 text-right"><p><span id="strengthScoreRight">12</span> : Strength</p></div>
+        <div class="strength-right col-sm-3 text-center"><p>Strength</p>
+          <p class="score"><span id="strengthScoreRight">11</span></p>
+        </div>
     </div>
     <div class="row strength-roll-row">
         <div class="strength-roll-left col-sm-3"></div>
