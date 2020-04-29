@@ -1,28 +1,87 @@
 /////CLASSES
 class Player{
-  constructor(player,selectorLeft,selectorRight, selectorResults, selectorStamina, selectorStrength, fightButton){
+  constructor(player, selectorStamina, selectorStrength){
     this.player = player;
-    this.dieOne = $("#"+selectorLeft);
-    this.dieTwo = $("#"+selectorRight);
-    this.results = $("#"+selectorResults);
     this.total = 0;
     this.stamina = $("#"+selectorStamina);
     this.strength = $("#"+selectorStrength);
-    this.fightButton = $("#"+fightButton);
   }
 
+}
 
-  roll(forThisScore,lowNum,highNum){
-    
+
+class Game{
+  constructor(){
+      this.round = "1";
+    }
+
+    restartGame(){
+      leftPlayer.stamina.text("12");
+      leftPlayer.strength.text("6");
+
+      rightPlayer.stamina.text("12");
+      rightPlayer.strength.text("6");
+
+      if(randomIntFromInterval(1,2) == 1){
+       leftDice.button.prop('disabled',true);
+       rightDice.button.prop('disabled',false);
+      }
+      else{
+       leftDice.button.prop('disabled',false);
+       rightDice.button.prop('disabled',true);
+      }
+
+      //console.log(rightPlayer.fightButton.prop('disabled'));
+
+    }
+
+}
+
+class Dice{
+ constructor(name,button, diceOne, diceTwo,results,associatedPlayer){
+    this.name = name;
+    this.button = $("#"+button);
+    this.dieOne = $("#"+diceOne);
+    this.dieTwo = $("#"+diceTwo);
+    this.results = $("#"+results);
+    this.total;
+    this.associatedPlayer = associatedPlayer;
+    this.mode;
+  }
+
+  setMode(mode){
+    //FIGHT, STAMINA, STRENGTH
+    this.mode = mode;
+
+    if(mode == "fight"){
+
+      this.button.text("Roll to fight!");
+      this.dieTwo.show();
+
+    }else if(mode == "stamina"){
+
+      this.button.text("Roll for Stamina");
+
+    }else if(mode == "strength"){
+
+      this.dieTwo.hide();
+      this.button.text("Roll for Strength");
+    }
+
+  }
+
+  roll(lowNum,highNum){
+
     var i = 1;
     var num;
     var num2;
 
     this.dieOne.rotate({ count:4, duration:0.5, easing:'ease-out' });
     this.dieTwo.rotate({ count:4, duration:0.7, easing:'ease-out' });
-    var myTimer = setInterval(rollDie,100,this);
+    
+    this.results.text("");
 
-    //console.log(this.selectorDieOne);
+    var myTimer = setInterval(rollDie,100,this);
 
     function rollDie(a){
       //console.log(a);
@@ -38,20 +97,35 @@ class Player{
       }
       
       if(i > 27){
-        clearInterval(myTimer);
-        a.total = num + num2;
-        console.log("roll total: "+a.total);
-        
-        fightRollFinished(a.player);
 
-        switch(forThisScore) {
+        clearInterval(myTimer);
+
+        a.total = num + num2;
+        
+        switch(a.mode) {
           case "fight":
             a.results.text(a.total);
-            a.results.effect( "bounce", { times: 3 }, "slow" );
+            a.results.effect( "bounce", { times: 3 }, "slow" );           
+            fightRollFinished(a.associatedPlayer.player);
             break;
           case "stamina":
-            a.stamina.text(a.total);
-            a.stamina.effect( "bounce", { times: 3 }, "slow" );
+            a.results.text(a.total);
+            a.results.effect( "bounce", { times: 1 }, "slow" );
+            a.associatedPlayer.stamina.text(12+num+num2);
+            a.associatedPlayer.stamina.effect( "bounce", { times: 3 }, "fast" );
+            
+            staminaRollFinished(a.associatedPlayer.player);
+            break;
+          case "strength":
+            a.results.text(num2);
+            a.results.effect( "bounce", { times: 3 }, "slow" );
+            $(a.results).transfer( {
+              to: $(a.associatedPlayer.strength),
+              duration: 1000
+            } );
+            a.associatedPlayer.strength.text(6+num2);
+            a.associatedPlayer.strength.effect( "bounce", { times: 3 }, "slow" );         
+            strengthRollFinished(a.associatedPlayer.player);
             break;
           default:
             // code block
@@ -67,34 +141,5 @@ class Player{
     
 
   }
-}
-
-
-class Game{
-  constructor(leftPlayer, rightPlayer){
-      this.round = "1";
-      this.leftPlayer = leftPlayer;
-      this.rightPlayer = rightPlayer;
-    }
-
-    restartGame(){
-      this.leftPlayer.stamina.text("22");
-      this.leftPlayer.strength.text("9");
-
-      this.rightPlayer.stamina.text("18");
-      this.rightPlayer.strength.text("11");
-
-      if(randomIntFromInterval(1,2) == 1){
-       this.leftPlayer.fightButton.prop('disabled',true);
-       this.rightPlayer.fightButton.prop('disabled',false);
-      }
-      else{
-        this.leftPlayer.fightButton.prop('disabled',false);
-        this.rightPlayer.fightButton.prop('disabled',true);
-      }
-
-      console.log(this.rightPlayer.fightButton.prop('disabled'));
-
-    }
 
 }

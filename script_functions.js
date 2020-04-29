@@ -3,19 +3,19 @@ function randomIntFromInterval(min, max) { // min and max included
 }
 
 function nextRound(playerWinner, playerLoser){
-  
+
   if(playerWinner == ""){
     if(randomIntFromInterval(1,2) == 1){
-    leftPlayer.fightButton.prop('disabled',true);
-    rightPlayer.fightButton.prop('disabled',false);
+    leftDice.button.prop('disabled',true);
+    rightDice.button.prop('disabled',false);
     }
     else{
-      leftPlayer.fightButton.prop('disabled',false);
-      rightPlayer.fightButton.prop('disabled',true);
+      leftDice.button.prop('disabled',false);
+      rightDice.button.prop('disabled',true);
     }
   }else{
-    playerWinner.fightButton.prop('disabled',false);
-    playerLoser.fightButton.prop('disabled',true);
+    playerWinner.button.prop('disabled',false);
+    playerLoser.button.prop('disabled',true);
   }
   fightRollCount = 0;
 }
@@ -27,10 +27,45 @@ function fightRollFinished(player){
     
     if(fightRollCount == 2){
       showWinner();
+      fightRollCount = 0;
     }else if(player == "left"){
-      rightPlayer.fightButton.prop('disabled',false);
+      rightDice.button.prop('disabled',false);
     }else if(player == "right"){
-      leftPlayer.fightButton.prop('disabled',false);
+      leftDice.button.prop('disabled',false);
+    }
+}
+
+function staminaRollFinished(player){
+
+    console.log(player);
+    console.log("rollcount:" + fightRollCount);
+    
+    if(fightRollCount == 2){
+      leftDice.setMode("strength");
+      rightDice.setMode("strength");
+      fightRollCount = 0;
+    }
+    if(player == "left"){
+      rightDice.button.prop('disabled',false);
+    }else if(player == "right"){
+      leftDice.button.prop('disabled',false);
+    }
+}
+
+function strengthRollFinished(player){
+
+    console.log(player);
+    console.log("rollcount:" + fightRollCount);
+    
+    if(fightRollCount == 2){
+      leftDice.setMode("fight");
+      rightDice.setMode("fight");
+      fightRollCount = 0;
+    }
+    if(player == "left"){
+      rightDice.button.prop('disabled',false);
+    }else if(player == "right"){
+      leftDice.button.prop('disabled',false);
     }
 }
 
@@ -39,12 +74,12 @@ function showWinner()
   console.log("left: "+leftPlayer.total);
   console.log("right: "+rightPlayer.total);
 
-  if(leftPlayer.total > rightPlayer.total){
+  if(leftDice.total > rightDice.total){
     rightPlayer.stamina.text(rightPlayer.stamina.text()-2);
-    nextRound(leftPlayer,rightPlayer);
-  }else if(rightPlayer.total > leftPlayer.total){
+    nextRound(leftDice,rightDice);
+  }else if(rightDice.total > leftDice.total){
     leftPlayer.stamina.text(leftPlayer.stamina.text()-2);
-    nextRound(rightPlayer,leftPlayer);
+    nextRound(rightDice,leftDice);
   }else
   {
     nextRound("","");
