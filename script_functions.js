@@ -2,14 +2,20 @@ function randomIntFromInterval(min, max) { // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function nextRound(){
-  if(randomIntFromInterval(1,2) == 1){
+function nextRound(playerWinner, playerLoser){
+  
+  if(playerWinner == ""){
+    if(randomIntFromInterval(1,2) == 1){
     leftPlayer.fightButton.prop('disabled',true);
     rightPlayer.fightButton.prop('disabled',false);
-  }
-  else{
-    leftPlayer.fightButton.prop('disabled',false);
-    rightPlayer.fightButton.prop('disabled',true);
+    }
+    else{
+      leftPlayer.fightButton.prop('disabled',false);
+      rightPlayer.fightButton.prop('disabled',true);
+    }
+  }else{
+    playerWinner.fightButton.prop('disabled',false);
+    playerLoser.fightButton.prop('disabled',true);
   }
   fightRollCount = 0;
 }
@@ -35,14 +41,15 @@ function showWinner()
 
   if(leftPlayer.total > rightPlayer.total){
     rightPlayer.stamina.text(rightPlayer.stamina.text()-2);
+    nextRound(leftPlayer,rightPlayer);
   }else if(rightPlayer.total > leftPlayer.total){
     leftPlayer.stamina.text(leftPlayer.stamina.text()-2);
+    nextRound(rightPlayer,leftPlayer);
   }else
   {
-
+    nextRound("","");
   }
 
-  nextRound();
 
 }
 
